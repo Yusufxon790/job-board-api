@@ -28,12 +28,12 @@ class Company extends Model
 
     protected static function booted(){
         static::creating(function ($company){
-            $company->slug = Str::slug($company->name);
+            $company->slug = Str::slug($company->name). '-' .time();
         });
 
         static::updating(function ($company){
             if($company->isDirty('name')){
-                $company->slug = Str::slug($company->name);
+                $company->slug = Str::slug($company->name). '-' .time();
             }
         });
     }
