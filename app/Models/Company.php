@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Company extends Model
 {
@@ -22,5 +24,22 @@ class Company extends Model
     }
     public function tags(){
         return $this->morphToMany(Tag::class,'taggable');
+    }
+
+    protected static function booted(){
+        static::creating(function ($company){
+            $company->slug = Str::slug($company->name);
+        });
+
+        static::updating(function ($company){
+            if($company->isDirty('name')){
+                $company->slug = Str::slug($company->name);
+            }
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

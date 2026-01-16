@@ -17,4 +17,12 @@ class CompanyPolicy
     public function create(User $user){
         return $user->role === "employer";
     }
+
+    public function update(User $user,$company){
+        return $user->id === $company->user_id;
+    }
+
+    public function delete(User $user,$company){
+        return $user->id === $company->user_id;
+    }
 }
