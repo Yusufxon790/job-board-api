@@ -17,7 +17,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::latest()->paginate(10);
+        $companies = Company::with('tags')->paginate(10);
         return CompanyResource::collection($companies);
     }
 
@@ -37,12 +37,15 @@ class CompanyController extends Controller
         $validated['user_id'] = auth()->id();
         $company = Company::create($validated);
 
+        if($request->has('tags')){
+            $company->tags()->attach($request->tags);
+        }
+        $company->load('tags');
+
         return response()->json([
             'message' => 'Kompaniya muvaffaqiyatli yaratildi!',
             'data' => new CompanyResource($company),
-        ],201);
-        
-        
+        ],201);     
     }
 
     /**
@@ -50,6 +53,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
+        $company->load('tags');
         return new CompanyResource($company);
     }
 
@@ -68,6 +72,12 @@ class CompanyController extends Controller
             $validated['logo'] = $path;
         }
         $company->update($validated);
+
+        if($request->has('tags')){
+            $company->tags()->sync($request->tags);
+        }
+        $company->load('tags');
+
         return response()->json([
             'message' => "Kompaniya muvaffaqiyatli o'zgartirildi!",
             'data' => new CompanyResource($company),

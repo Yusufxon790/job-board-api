@@ -36,6 +36,9 @@ class Company extends Model
                 $company->slug = Str::slug($company->name). '-' .time();
             }
         });
+        static::deleting(function ($company){
+            $company->tags()->detach();
+        });
     }
 
     public function getRouteKeyName()

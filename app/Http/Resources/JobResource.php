@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompanyResource extends JsonResource
+class JobResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,19 @@ class CompanyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'website' => $this->website,
-            'logo' => $this->logo ? asset('storage/' . $this->logo) : null,
+            'type' => $this->type,
+            'salary' => [
+                'min' => $this->salary_min,
+                'max' => $this->salary_max,
+            ],
+            'company' => new CompanyResource($this->whenLoaded('company')),
+            'category' => [
+                'id' => $this->category->id,
+                'name' => $this->category->name,
+            ],
             'tags' => TagResource::collection($this->whenLoaded('tags')),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
