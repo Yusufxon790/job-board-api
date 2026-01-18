@@ -12,9 +12,9 @@ Route::get('companies',[CompanyController::class,'index']);
 Route::get('companies/{company}',[CompanyController::class,'show']);
 
 Route::get('jobs',[JobController::class,'index']);
-
+Route::get('jobs/{job}',[JobController::class,'show']);
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('logout',[AuthController::class,'logout']);
     Route::apiResource('companies',CompanyController::class)->except(['index','show']);
-    Route::apiResource('jobs',JobController::class)->except(['index']);
+    Route::apiResource('jobs',JobController::class)->except(['index','show']);
 });

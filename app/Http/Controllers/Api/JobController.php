@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Resources\JobResource;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Job;
@@ -47,24 +48,44 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Job $job)
     {
-        //
+        $job->load(['company','category','tags']);
+        return new JobResource($job);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreJobRequest $request, Job $job)
     {
-        //
+        Gate::authorize('update',$job);
+        $validated = $request->validated();
+
+        $job->update($validated);
+
+        if($request->has('tags')){
+            $job->tags()->sync($request->tags);
+        }
+        $job->load('tags');
+
+        return response()->json([
+            'message' => "Vakansiya muvaffaqiyatli o'zgartirildi!",
+            'data' => new JobResource($job),
+        ],200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $job)
     {
-        //
+        Gate::authorize('delete',$job);
+
+        $job->delete();
+
+        return response()->json([
+            'message' => "Vakansiya o'chirildi!",
+        ],204);
     }
 }

@@ -41,6 +41,10 @@ class Job extends Model
                 $job->slug = Str::slug($job->title) . '-' . time();
             }
         });
+
+        static::deleting(function ($job){
+            $job->tags()->detach();
+        });
     }
 
     public function getRouteKeyName()
