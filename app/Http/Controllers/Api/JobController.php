@@ -15,10 +15,38 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Job::with(['company','category','tags']);
-        $jobs = $query->latest()->paginate(10);
+
+        $query->when($request->type,function ($q,$type){
+            return $q->byType($type);
+        });
+        $query->when($request->search,function ($q,$search){
+            return $q->search($search);
+        });
+
+        $query->when($request->salary_min, function ($q,$salary_min){
+            return $q->minSalary($salary_min);
+        });
+
+        $query->when($request->category_id,function ($q,$category_id){
+            return $q->byCategory($category_id);
+        });
+
+        $query->when($request->tag_id,function ($q,$tag_id){
+            return $q->byTag($tag_id);
+        });
+        $query->when($request->salary_min && $request->salary_max, function ($q) use ($request){
+            return $q->salaryRange($request->salary_min,$request->salary_max);
+        });
+        $query->when($request->sort, function ($q,$sort){
+            return $q->sortBy($sort);
+        }, function ($q){
+            return $q->latest();
+        });
+        $jobs = $query->paginate(10);
+
         return JobResource::collection($jobs);
     }
 
