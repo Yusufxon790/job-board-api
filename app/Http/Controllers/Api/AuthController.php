@@ -17,10 +17,8 @@ class AuthController extends Controller
 
         $validated['password'] = Hash::make($request->password);
         $user = User::create($validated);
-
-        $token = $user->createToken('main_token')->plainTextToken;
-
-        return response()->json(['user'=>$user,'token'=>$token],201);
+        $validated['role'] = "candidate";
+        return response()->json(['user'=>$user],201);
     }
 
     public function login(LoginRequest $request){

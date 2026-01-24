@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'email' => ['required','string','email','unique:users'],
             'password' => ['required','confirmed'],
-            'role' => ['required','in:employer,candidate,admin']
+            'role' => ['in:employer,candidate,admin']
         ];
     }
 }

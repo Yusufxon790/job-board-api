@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApplicationController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CompanyController;
@@ -26,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('jobs',JobController::class)->except(['index','show']);
     Route::apiResource('categories',CategoryController::class)->except(['index']);
     Route::apiResource('tags',TagController::class)->except(['index']);
+    Route::apiResource('applications',ApplicationController::class);
 });
