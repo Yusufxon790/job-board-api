@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Resources\ApplicationResource;
+use App\Notifications\ApplicationStatusUpdated;
+use App\Notifications\NewApplicationReceived;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Application;
@@ -55,6 +57,8 @@ class ApplicationController extends Controller
         $application = Application::create($validated);
 
         $application->load(['user','job']);
+        $employer = $application->job->company->user;
+        $employer->notify(new NewApplicationReceived($application));
         return response()->json([
             'message' => "Ariza muvaffaqiaytli kiritildi!",
             'data' => new ApplicationResource($application),
@@ -64,10 +68,13 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Application $application)
     {
-        //
+        Gate::authorize('view',$application);
+        $application->load(['user','job.company']);
+        return new ApplicationResource($application);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -77,6 +84,8 @@ class ApplicationController extends Controller
         Gate::authorize('update',$application);
         if(auth()->user()->role === 'employer'){
             $application->update($request->only('status'));
+            $candidate = $application->user;
+            $candidate->notify(new ApplicationStatusUpdated($application));
         }
         elseif ($request->hasFile('resume_path')) {
             Storage::disk('public')->delete($application->resume_path);

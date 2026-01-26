@@ -21,7 +21,7 @@ class ApplicationPolicy
      */
     public function view(User $user, Application $application): bool
     {
-        return false;
+        return $user->role === 'employer' && $user->id === $application->job->company->user_id;
     }
 
     /**
