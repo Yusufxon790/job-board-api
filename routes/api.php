@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register',[AuthController::class,'register']);
@@ -28,4 +29,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('categories',CategoryController::class)->except(['index']);
     Route::apiResource('tags',TagController::class)->except(['index']);
     Route::apiResource('applications',ApplicationController::class);
+    Route::get('/me',[UserController::class,'me']);
+    Route::post('/user/update',[UserController::class,'update']);
+    Route::get('/users/{user}',[UserController::class,'show']);
 });
