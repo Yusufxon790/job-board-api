@@ -1,59 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Job Board API System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A professional, secure, and high-performance Backend API for a Job Board platform, built with Laravel. It supports role-based access for Employers and Candidates with automated notifications and background processing.
 
-## About Laravel
+## ✨ Key Features
+- **Authentication:** Secure login/register system using Laravel Sanctum.
+- **Role-Based Access Control (RBAC):** Distinct functionalities for 'Employer' and 'Candidate'.
+- **Job Management:** Full CRUD for vacancies with ownership protection.
+- **Application System:** Candidates can apply for jobs; Employers can accept/reject applications.
+- **Notifications:** Real-time email and database alerts powered by Laravel Notifications.
+- **Security:** Strict authorization using Laravel Policies to prevent unauthorized data access.
+- **Performance:** Optimized database queries with Eager Loading to solve N+1 issues.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠 Tech Stack
+- **Framework:** Laravel 12.x
+- **Database:** MySQL
+- **Tooling:** Postman (API Documentation), Mailtrap (Email Testing)
+- **Architecture:** API Resources, Form Requests, Policies, and Service-oriented approach.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ⚙️ Installation & Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Yusufxon790/job-board-api.git](https://github.com/Yusufxon/job-board-api.git)
 
-## Learning Laravel
+2. **Install dependencies:**
+   ```bash
+   composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+3. **Configure Environment:**
+   ```bash
+   cp .env.example .env
+   #Update DB_DATABASE, MAIL_USERNAME, MAIL_PASSWORD etc. in .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Run Migrations & Seeders:**
+   ```bash
+   php artisan migrate
 
-## Laravel Sponsors
+5. **Link Storage:**
+   ```bash
+   php artisan storage:link
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. **Run the Server:**
+   ```bash
+   php artisan serve
 
-### Premium Partners
+## 📖 API Documentation
+# The API is fully documented using a Postman Collection.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**To use the documentation:**
+1. Navigate to the `docs/` folder.
+2. Import `Job Board API.postman_collection.json` into your Postman application.
+3. Set the `baseUrl` environment variable to `http://localhost/api`.
+4. All requests include Examples for success and error responses.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 👨‍💻 Author
+- [MuhammadYusuf Akramov](https://github.com/Yusufxon790)  
+- 📧 Email: akramovyusufxon590@gmail.com  
