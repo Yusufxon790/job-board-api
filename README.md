@@ -45,7 +45,7 @@ A professional, secure, and high-performance Backend API for a Job Board platfor
    php artisan serve
 
 ## 📖 API Documentation
-# The API is fully documented using a Postman Collection.
+### The API is fully documented using a Postman Collection.
 
 **To use the documentation:**
 1. Navigate to the `docs/` folder.
